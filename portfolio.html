@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nathan Parker — Visual Storyteller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Grotesk:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0a0908;
+  --off-white:#f2ede6;
+  --warm-mid:#c8bfb0;
+  --accent:#d4a853;
+  --rule:rgba(200,191,176,0.3);
+  --text-muted:rgba(242,237,230,0.5);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk',sans-serif;background:var(--black);color:var(--off-white);font-size:16px;line-height:1.6;cursor:none}
+
+/* custom cursor */
+.cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s;mix-blend-mode:difference}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,168,83,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.18s ease}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:60px 6vw;position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#0a0908 30%,#1a1510 100%);z-index:0}
+.hero-grid{position:absolute;inset:0;z-index:1;opacity:0.06;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(212,168,83,0.8) 79px,rgba(212,168,83,0.8) 80px),repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(212,168,83,0.8) 79px,rgba(212,168,83,0.8) 80px)}
+.hero-content{position:relative;z-index:2}
+.hero-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;opacity:0;animation:fadeUp 0.8s 0.2s forwards}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(72px,12vw,160px);font-weight:300;line-height:0.88;letter-spacing:-0.02em;color:var(--off-white);opacity:0;animation:fadeUp 0.8s 0.35s forwards}
+.hero-name em{font-style:italic;color:var(--accent)}
+.hero-sub{margin-top:28px;font-size:15px;font-weight:300;color:var(--warm-mid);max-width:480px;line-height:1.8;opacity:0;animation:fadeUp 0.8s 0.5s forwards}
+.hero-scroll{position:absolute;bottom:40px;right:6vw;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);writing-mode:vertical-rl;z-index:2;opacity:0;animation:fadeUp 0.8s 0.8s forwards}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 6vw;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;letter-spacing:0.06em;color:#fff;text-decoration:none}
+.nav-links{display:flex;gap:32px}
+.nav-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:#fff}
+
+/* SECTIONS */
+.section{padding:100px 6vw;max-width:1200px;margin:0 auto}
+.section-full{padding:100px 0}
+.section-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,64px);font-weight:300;line-height:1.1;margin-bottom:16px}
+.section-title em{font-style:italic}
+.section-body{font-size:15px;font-weight:300;color:var(--warm-mid);line-height:1.9;max-width:560px}
+
+/* VIDEO */
+.video-section{padding:80px 6vw;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.video-inner{max-width:1200px;margin:0 auto}
+.video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#111;margin-top:48px}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+@media(max-width:640px){.video-grid-2{grid-template-columns:1fr!important}}
+
+/* PHOTO GRID */
+.photo-section{padding:80px 0;border-bottom:1px solid var(--rule)}
+.photo-intro{padding:0 6vw;max-width:1200px;margin:0 auto 60px}
+.masonry{columns:3;column-gap:3px;padding:0 3px}
+@media(max-width:768px){.masonry{columns:2}}
+@media(max-width:480px){.masonry{columns:1}}
+.masonry-item{break-inside:avoid;margin-bottom:3px;position:relative;overflow:hidden;display:block}
+.masonry-item img{width:100%;display:block;transition:transform 0.6s ease, opacity 0.3s;opacity:0.85}
+.masonry-item:hover img{transform:scale(1.03);opacity:1}
+.masonry-caption{position:absolute;bottom:0;left:0;right:0;padding:40px 16px 14px;background:linear-gradient(transparent,rgba(10,9,8,0.85));font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(242,237,230,0.7);opacity:0;transition:opacity 0.25s}
+.masonry-item:hover .masonry-caption{opacity:1}
+
+/* WRITING */
+.writing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:48px}
+.writing-card{background:var(--black);padding:28px 24px;text-decoration:none;color:var(--off-white);display:flex;flex-direction:column;transition:background 0.15s}
+.writing-card:hover{background:#141210}
+.writing-pub{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.writing-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;line-height:1.3;margin-bottom:10px;flex:1}
+.writing-desc{font-size:13px;color:var(--warm-mid);line-height:1.6;margin-bottom:16px;font-weight:300}
+.writing-cta{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent)}
+
+/* CAMPAIGNS */
+.campaigns-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:48px}
+.campaign-card{background:var(--black);padding:28px 24px;transition:background 0.15s}
+.campaign-card:hover{background:#141210}
+.campaign-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--rule);line-height:1;margin-bottom:14px}
+.campaign-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:8px}
+.campaign-body{font-size:13px;color:var(--warm-mid);line-height:1.7;font-weight:300}
+.campaign-stat{display:inline-block;margin-top:12px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--accent);border:1px solid rgba(212,168,83,0.3);padding:4px 10px}
+
+/* ABOUT */
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+@media(max-width:768px){.about-layout{grid-template-columns:1fr}}
+.about-img{position:relative}
+.about-img img{width:100%;display:block;aspect-ratio:3/4;object-fit:cover;object-position:top;filter:grayscale(20%)}
+.about-img::before{content:'';position:absolute;inset:-8px;border:1px solid rgba(212,168,83,0.2);z-index:-1}
+.about-text .section-body{margin-bottom:32px}
+.skills-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.skill-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--rule);padding:6px 14px;color:var(--warm-mid)}
+
+/* CONTACT */
+.contact-section{padding:100px 6vw;border-top:1px solid var(--rule);text-align:center}
+.contact-title{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,80px);font-weight:300;font-style:italic;margin-bottom:40px;line-height:1.1}
+.contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:24px;margin-bottom:48px}
+.contact-link{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm-mid);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:4px;transition:color 0.2s,border-color 0.2s}
+.contact-link:hover{color:var(--accent);border-color:var(--accent)}
+.contact-email{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--off-white);text-decoration:none;display:block;margin-bottom:16px;transition:color 0.2s}
+.contact-email:hover{color:var(--accent)}
+
+/* FOOTER */
+footer{padding:24px 6vw;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.08em;color:rgba(242,237,230,0.25);flex-wrap:wrap;gap:8px}
+
+/* DIVIDER */
+.rule{border:none;border-top:1px solid var(--rule);margin:0}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#" class="nav-logo">NP</a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#writing">Writing</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Visual Storyteller · Videographer · Photographer</p>
+    <h1 class="hero-name">Nathan<br><em>Parker</em></h1>
+    <p class="hero-sub">I make stories visible. Through the lens and in the edit, I find the frame that holds the feeling — then I make sure it reaches the people it was meant for.</p>
+  </div>
+  <span class="hero-scroll">Scroll to explore</span>
+</section>
+
+<!-- VIDEO -->
+<section class="video-section" id="work">
+  <div class="video-inner">
+    <div class="reveal">
+      <p class="section-label">Video Work</p>
+      <h2 class="section-title">Storytelling <em>in motion</em></h2>
+      <p class="section-body" style="margin-top:12px">Short-form documentary and narrative video — shot, edited, and produced independently on the Canon EOS R8. Every frame chosen with intention.</p>
+    </div>
+
+    <div class="reveal" style="margin-top:48px">
+      <div class="video-wrap" style="margin-top:0">
+        <iframe src="https://www.youtube.com/embed/U4pTzlwbOCo" title="Nathan Parker — Short-Form Video 1" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p style="font-family:Space Mono,monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm-mid);margin-top:12px">Short-form · Vol. 1</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:3px" class="reveal">
+      <div>
+        <div class="video-wrap" style="margin-top:0">
+          <iframe src="https://www.youtube.com/embed/G4oUglU0yZY" title="Nathan Parker — Short-Form Video 2" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <p style="font-family:Space Mono,monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm-mid);margin-top:12px;padding:0 4px">Short-form · Vol. 2</p>
+      </div>
+      <div>
+        <div class="video-wrap" style="margin-top:0">
+          <iframe src="https://www.youtube.com/embed/HeyMoxlq8n0" title="Nathan Parker — Short-Form Video 3" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <p style="font-family:Space Mono,monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm-mid);margin-top:12px;padding:0 4px">Short-form · Vol. 3</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOGRAPHY -->
+<section class="photo-section">
+  <div class="photo-intro reveal">
+    <p class="section-label">Photography</p>
+    <h2 class="section-title">The <em>still</em> frame</h2>
+    <p class="section-body" style="margin-top:12px">Community, landscape, and documentary photography — shot in and around Cobb County, Georgia. Finding the story before the interview starts.</p>
+  </div>
+  <div class="masonry reveal">
+    <div class="masonry-item">
+      <img src="IMG_0475.jpg" alt="Train tracks framed, Acworth GA">
+      <div class="masonry-caption">Acworth, GA · Frame within a frame</div>
+    </div>
+    <div class="masonry-item">
+      <img src="IMG_1037.jpg" alt="B&W mountain tree silhouette">
+      <div class="masonry-caption">North Georgia Mountains · B&W</div>
+    </div>
+    <div class="masonry-item">
+      <img src="IMG_2461.jpg" alt="Fox Theatre neon at night">
+      <div class="masonry-caption">Fox Theatre, Atlanta · Night</div>
+    </div>
+    <div class="masonry-item">
+      <img src="IMG_0521.jpg" alt="Street signs deep blue sky">
+      <div class="masonry-caption">Acworth · Street detail</div>
+    </div>
+    <div class="masonry-item">
+      <img src="IMG_1082.jpg" alt="Golden grass bokeh foothills">
+      <div class="masonry-caption">Georgia Foothills · Golden hour</div>
+    </div>
+    <div class="masonry-item">
+      <img src="IMG_0042.jpg" alt="Community sculpture Kennesaw">
+      <div class="masonry-caption">Kennesaw · Community &amp; place</div>
+    </div>
+    <div class="masonry-item">
+      <img src="IMG_2473.jpg" alt="Portrait at Fox Theatre">
+      <div class="masonry-caption">Fox Theatre · Event portrait</div>
+    </div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<div style="border-bottom:1px solid var(--rule)">
+<section class="section" id="writing">
+  <div class="reveal">
+    <p class="section-label">Published Writing</p>
+    <h2 class="section-title">Words that <em>move</em></h2>
+    <p class="section-body" style="margin-top:12px">Sports profiles, beat analysis, and features — published independently on Medium and Substack. Self-assigned, self-edited, self-published.</p>
+  </div>
+  <div class="writing-grid reveal">
+    <a href="https://parkern255.medium.com/frank-micheal-smith-25998d86eb27" target="_blank" class="writing-card">
+      <div class="writing-pub">Medium · Profile & Interview</div>
+      <div class="writing-title">Frank Michael Smith</div>
+      <div class="writing-desc">A profile and interview with a TikTok creator navigating the attention economy.</div>
+      <div class="writing-cta">Read →</div>
+    </a>
+    <a href="https://parkern255.medium.com/the-career-of-drew-brees-67579b135fb" target="_blank" class="writing-card">
+      <div class="writing-pub">Medium · Sports Profile</div>
+      <div class="writing-title">The Career of Drew Brees</div>
+      <div class="writing-desc">Brees vs. Brady in the divisional round — contextualizing one of the great QB careers.</div>
+      <div class="writing-cta">Read →</div>
+    </a>
+    <a href="https://parkern255.medium.com/does-jason-kidd-need-to-go-186d5918cf97" target="_blank" class="writing-card">
+      <div class="writing-pub">Medium · Analysis</div>
+      <div class="writing-title">Does Jason Kidd Need to Go?</div>
+      <div class="writing-desc">Beat-style coaching analysis after the Mavericks' 2022 Western Conference exit.</div>
+      <div class="writing-cta">Read →</div>
+    </a>
+    <a href="https://parkern255.medium.com/tcu-are-they-in-435037d38426" target="_blank" class="writing-card">
+      <div class="writing-pub">Medium · Breaking Analysis</div>
+      <div class="writing-title">TCU: Are They In?</div>
+      <div class="writing-desc">Timely CFP analysis written to deadline as the selection picture shifted.</div>
+      <div class="writing-cta">Read →</div>
+    </a>
+    <a href="https://parkern255.medium.com/your-guide-to-the-fifa-world-cup-6653ec5a06e1" target="_blank" class="writing-card">
+      <div class="writing-pub">Medium · Reader's Guide</div>
+      <div class="writing-title">Your Guide to the FIFA World Cup</div>
+      <div class="writing-desc">An accessible primer for the casual fan ahead of the 2022 tournament.</div>
+      <div class="writing-cta">Read →</div>
+    </a>
+    <a href="https://nathanparker.substack.com" target="_blank" class="writing-card">
+      <div class="writing-pub">Substack · Newsletter</div>
+      <div class="writing-title">Nathan's Substack</div>
+      <div class="writing-desc">Longer-form writing and personal journalism published since 2022.</div>
+      <div class="writing-cta">Visit →</div>
+    </a>
+  </div>
+</section>
+</div>
+
+<!-- CAMPAIGNS -->
+<div style="border-bottom:1px solid var(--rule)">
+<section class="section">
+  <div class="reveal">
+    <p class="section-label">Community Work</p>
+    <h2 class="section-title">Content that <em>connects</em></h2>
+    <p class="section-body" style="margin-top:12px">Social strategy and storytelling for real organizations — insurance, real estate, nonprofits. Community-first, results-driven.</p>
+  </div>
+  <div class="campaigns-grid reveal">
+    <div class="campaign-card">
+      <div class="campaign-num">01</div>
+      <div class="campaign-title">Follower Friday — Community Spotlight</div>
+      <div class="campaign-body">Weekly series profiling local businesses through interviews and behind-the-scenes storytelling.</div>
+      <div class="campaign-stat">+40% engagement</div>
+    </div>
+    <div class="campaign-card">
+      <div class="campaign-num">02</div>
+      <div class="campaign-title">Noah's Ark Donation Drive</div>
+      <div class="campaign-body">Multi-week nonprofit campaign — graphics, ad copy, social posts, and community logistics from scratch.</div>
+    </div>
+    <div class="campaign-card">
+      <div class="campaign-num">03</div>
+      <div class="campaign-title">Carrier Shutdown Crisis Comms</div>
+      <div class="campaign-body">Led strategic client communication during a major carrier shutdown. Calm, accurate, timely.</div>
+      <div class="campaign-stat">85%+ client retention</div>
+    </div>
+    <div class="campaign-card">
+      <div class="campaign-num">04</div>
+      <div class="campaign-title">Texas Rangers Ticket Campaign</div>
+      <div class="campaign-body">Sports-tied audience growth campaign with carrier partner. Designed, wrote, and managed end-to-end.</div>
+    </div>
+    <div class="campaign-card">
+      <div class="campaign-num">05</div>
+      <div class="campaign-title">Real Estate Short-Form Video</div>
+      <div class="campaign-body">Documentary-style short videos for first-time homebuyers in the Kennesaw area market.</div>
+    </div>
+    <div class="campaign-card">
+      <div class="campaign-num">06</div>
+      <div class="campaign-title">Seasonal Community Campaigns</div>
+      <div class="campaign-body">Holiday content for multi-generational rural audiences across Cooke and Denton counties, TX.</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="about-layout reveal">
+    <div class="about-img">
+      <img src="IMG_2170.jpeg" alt="Nathan Parker with his Canon EOS R8">
+    </div>
+    <div class="about-text">
+      <p class="section-label">About</p>
+      <h2 class="section-title" style="margin-bottom:24px">Camera first.<br><em>Always.</em></h2>
+      <p class="section-body">I'm Nathan Parker — a videographer, photographer, and digital storyteller based in Kennesaw, GA. My work lives at the intersection of visual craft and community: I want to find the images and sequences that make people feel something about the place they live in.</p>
+      <p class="section-body" style="margin-top:16px">Background in live radio broadcast, short-form video production, social media strategy, and published sports journalism. Currently pursuing a B.S. in Digital Media & Communications at Georgia Highlands College (Honors College).</p>
+      <div class="skills-list">
+        <span class="skill-tag">Videography</span>
+        <span class="skill-tag">Photography</span>
+        <span class="skill-tag">Short-form video</span>
+        <span class="skill-tag">CapCut</span>
+        <span class="skill-tag">After Effects</span>
+        <span class="skill-tag">Premiere Pro</span>
+        <span class="skill-tag">Photoshop</span>
+        <span class="skill-tag">Canva</span>
+        <span class="skill-tag">TikTok</span>
+        <span class="skill-tag">Social strategy</span>
+        <span class="skill-tag">Canon EOS R8</span>
+        <span class="skill-tag">Broadcast</span>
+        <span class="skill-tag">Writing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <h2 class="contact-title reveal">Let's make<br>something.</h2>
+  <div class="reveal">
+    <a href="/cdn-cgi/l/email-protection#6b1b0a19000e1905595e5e2b0c060a020745080406" class="contact-email"><span class="__cf_email__" data-cfemail="730312011816011d41464633141e121a1f5d101c1e">[email&#160;protected]</span></a>
+    <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--warm-mid);margin-bottom:32px">940-641-0367 · Kennesaw, GA</p>
+  </div>
+  <div class="contact-links reveal">
+    <a href="https://parkern255.medium.com" target="_blank" class="contact-link">Medium</a>
+    <a href="https://nathanparker.substack.com" target="_blank" class="contact-link">Substack</a>
+    <a href="https://sites.google.com/view/nathanparkerdesigns" target="_blank" class="contact-link">Campaign Work</a>
+    <a href="https://www.youtube.com/watch?v=U4pTzlwbOCo" target="_blank" class="contact-link">YouTube</a>
+  </div>
+</section>
+
+<footer>
+  <span>Nathan Parker · Visual Storyteller · Kennesaw, GA</span>
+  <span>© 2026</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  ring.style.left = e.clientX + 'px';
+  ring.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.style.transform = 'translate(-50%,-50%) scale(1.8)');
+  el.addEventListener('mouseleave', () => ring.style.transform = 'translate(-50%,-50%) scale(1)');
+});
+
+// scroll reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isI
