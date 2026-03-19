@@ -24,8 +24,8 @@ body{font-family:'Space Grotesk',sans-serif;background:var(--black);color:var(--
 .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,168,83,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.18s ease}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:60px 6vw;position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#0a0908 30%,#1a1510 100%);z-index:0}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:80px 6vw 80px;position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#0a0908 30%,#1a1510 100%);z-index:0}.hero-photo{position:absolute;inset:0;z-index:0;overflow:hidden}.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.35;filter:saturate(1.2)}.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,9,8,0.3) 0%,rgba(10,9,8,0.5) 50%,rgba(10,9,8,0.92) 100%)}
 .hero-grid{position:absolute;inset:0;z-index:1;opacity:0.06;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(212,168,83,0.8) 79px,rgba(212,168,83,0.8) 80px),repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(212,168,83,0.8) 79px,rgba(212,168,83,0.8) 80px)}
 .hero-content{position:relative;z-index:2}
 .hero-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;animation:fadeUp 0.8s 0.2s both}
@@ -138,6 +138,7 @@ noscript .reveal, .reveal.visible{opacity:1;transform:translateY(0)}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
+  <div class="hero-photo"><img src="IMG_0056.jpeg" alt="Hollywood Studios at night"></div>
   <div class="hero-grid"></div>
   <div class="hero-content">
     <p class="hero-eyebrow">Visual Storyteller · Videographer · Photographer</p>
@@ -216,6 +217,15 @@ noscript .reveal, .reveal.visible{opacity:1;transform:translateY(0)}
       <img src="IMG_2473.jpg" alt="Portrait at Fox Theatre">
       <div class="masonry-caption">Fox Theatre · Event portrait</div>
     </div>
+    <div class="masonry-item">
+      <img src="IMG_0056.jpeg" alt="Hollywood Studios at night, rain reflections">
+      <div class="masonry-caption">Hollywood Studios · Night &amp; rain</div>
+    </div>
+    <div class="masonry-item">
+      <img src="IMG_2184.jpeg" alt="Mountain sunset through bare tree">
+      <div class="masonry-caption">North Georgia · Mountain sunset</div>
+    </div>
+
   </div>
 </section>
 
@@ -252,10 +262,10 @@ noscript .reveal, .reveal.visible{opacity:1;transform:translateY(0)}
       <div class="writing-desc">Timely CFP analysis written to deadline as the selection picture shifted.</div>
       <div class="writing-cta">Read →</div>
     </a>
-    <a href="https://parkern255.medium.com/your-guide-to-the-fifa-world-cup-6653ec5a06e1" target="_blank" class="writing-card">
-      <div class="writing-pub">Medium · Reader's Guide</div>
-      <div class="writing-title">Your Guide to the FIFA World Cup</div>
-      <div class="writing-desc">An accessible primer for the casual fan ahead of the 2022 tournament.</div>
+    <a href="https://nathanparker.substack.com/p/the-game-within-the-game-how-gambling" target="_blank" class="writing-card">
+      <div class="writing-pub">Substack · Investigative Feature</div>
+      <div class="writing-title">The Game Within the Game</div>
+      <div class="writing-desc">How sports gambling companies embedded themselves into fandom — using spectacle, influencers, and digital design to reach younger audiences than ever.</div>
       <div class="writing-cta">Read →</div>
     </a>
     <a href="https://nathanparker.substack.com" target="_blank" class="writing-card">
@@ -317,7 +327,7 @@ noscript .reveal, .reveal.visible{opacity:1;transform:translateY(0)}
 <section class="section" id="about">
   <div class="about-layout reveal">
     <div class="about-img">
-      <img src="IMG_2170.jpeg" alt="Nathan Parker with his Canon EOS R8">
+      <img src="IMG_2168.jpeg" alt="Nathan Parker with his Canon EOS R8">
     </div>
     <div class="about-text">
       <p class="section-label">About</p>
